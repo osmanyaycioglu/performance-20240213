@@ -1,4 +1,4 @@
-package com.training.performance.pg;
+package training.performnace.pg;
 
 import java.util.Objects;
 

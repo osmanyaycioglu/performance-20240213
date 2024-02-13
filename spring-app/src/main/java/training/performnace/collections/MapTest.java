@@ -1,43 +1,45 @@
-package com.training.performance.collections;
+package training.performnace.collections;
 
 import java.util.*;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ConcurrentHashMap;
 
-public class SetTest {
+public class MapTest {
+    private Map<String,String> map = new ConcurrentHashMap<>(10_000_000,0.9f,1_000);
+    private Map<String,String> map2 = new Hashtable<>();
 
     public static void main(String[] args) throws InterruptedException {
         // List<String> listLoc = new LinkedList<>();
-        Set<String> listLoc = new HashSet<>();
+        Map<String,String> mapLoc = new HashMap<>();
         for (int i = 0; i < 15_000; i++) {
-            listLoc.add("osman");
+            mapLoc.put("osman","osman");
         }
         Thread.sleep(1_000);
-        listLoc.clear();
+        mapLoc.clear();
         System.gc();
         Thread.sleep(1_000);
 
         long delta = System.currentTimeMillis();
         for (int i = 0; i < 1_000_000; i++) {
-            // UTF16
-            listLoc.add("osman" + i);
+            String s = "osman" + i;
+            mapLoc.put(s,s);
         }
-        System.out.println("Add delta : " +(System.currentTimeMillis() -delta));
+        System.out.println("Put delta : " +(System.currentTimeMillis() -delta));
 
         delta = System.currentTimeMillis();
         for (int i = 0; i < 1_000_000; i++) {
-            listLoc.contains("osman" + i);
+            mapLoc.containsKey("osman" + i);
         }
         System.out.println("Contains delta : " +(System.currentTimeMillis() -delta));
 
         delta = System.currentTimeMillis();
-        for (String stringLoc : listLoc) {
+        for (String stringLoc : mapLoc.values()) {
 
         }
         System.out.println("Iterate delta : " +(System.currentTimeMillis() -delta));
 
         delta = System.currentTimeMillis();
         for (int i = 0; i < 1_000_000; i++) {
-            listLoc.remove("osman" + i);
+            mapLoc.remove("osman" + i);
         }
         System.out.println("Remove delta : " +(System.currentTimeMillis() -delta));
 
