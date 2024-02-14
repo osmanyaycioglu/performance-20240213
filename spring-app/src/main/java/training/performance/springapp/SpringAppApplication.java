@@ -2,11 +2,13 @@ package training.performance.springapp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @SpringBootApplication
+@EnableScheduling
 public class SpringAppApplication {
 
     public static void main(String[] args) {
@@ -23,7 +25,7 @@ public class SpringAppApplication {
 
         Car carLoc = new Car();
         carLoc.setName("bwm");
-        String a = args[0];
+        String a = "args[0]";
         carLoc.setHp(180);
 
         List<String> listLoc = List.of("osman",
